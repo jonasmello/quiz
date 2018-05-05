@@ -4,8 +4,10 @@ ADD . /app
 
 RUN apt-get update && \
     apt-get install \
-    git zip unzip \
+    git zip unzip mysql-client \
     -y --no-install-recommends
+
+RUN docker-php-ext-install pdo pdo_mysql
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -17,3 +19,4 @@ RUN service apache2 restart
 
 WORKDIR /var/www/html
 
+#  mysql -u php -h mysql -D quiz -p1234php

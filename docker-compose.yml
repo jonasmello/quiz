@@ -20,7 +20,7 @@ services:
       MYSQL_PASSWORD: 1234php
       MYSQL_ROOT_PASSWORD: 1234php
     ports:
-      - 3306
+      - "3306:3306"
 
 
 

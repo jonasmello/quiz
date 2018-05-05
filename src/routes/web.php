@@ -12,9 +12,7 @@
 */
 
 
-Route::get('/quiz', function () {
-    return 'welcome';
-})->name('route.quiz');
+Route::get('/quiz', 'QuizController@index')->name('route.quiz');
 
 
 Route::get('/', function () {

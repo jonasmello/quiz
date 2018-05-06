@@ -3,8 +3,12 @@
     <div class="pt-3 pt-md-5 text-center">
         <h1 class="display-5">{{$title OR 'Em um dia, que série melhor representa você?'}}</h1>
 
-        <form action="{{url('/quiz/question/' . ($question->id + 1))}}" class="p-4 pb-5 text-left">
+        <form action="{{$formAction}}" method="post" class="question-form p-4 pb-5 text-left">
+            {{ csrf_field() }}
             <p class="lead">Pergunta: {{ $question->id }} - {{ $question->description }}</p>
+            @foreach ($userAnswers as $key => $userAnswer)
+                <input type="hidden" name="userAnswers[{{$key}}]" value="{{$userAnswer}}">
+            @endforeach        
             @foreach ($answers as $answer)
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="answer" id="answer-{{$answer->id}}" value="{{$answer->series_id}}">
@@ -13,7 +17,6 @@
             @endforeach        
         </form>
 
-
-        <a href="{{url('/quiz/question/1')}}" type="button" class="btn btn-lg px-5 btn-primary">Recomeçar</a>
+        <a href="{{url('quiz/question/1')}}" class="btn btn-lg px-5 btn-primary">{{$btnText OR 'Recomeçar'}}</a>
     </div>
 @endsection

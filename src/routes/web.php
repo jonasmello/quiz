@@ -14,7 +14,8 @@
 
 Route::get('/quiz', 'QuizController@index')->name('route.quiz');
 
-Route::get('/quiz/question/{id?}', 'QuizController@question')->name('route.quiz');
+Route::any('/quiz/question/{id?}', 'QuizController@question');
+Route::post('/quiz/result/', 'QuizController@result')->name('route.result');
 
 
 Route::get('/', function () {

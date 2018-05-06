@@ -14,7 +14,11 @@
 
 Route::get('/quiz', 'QuizController@index')->name('route.quiz');
 
+Route::get('/quiz/question/{id?}', 'QuizController@question')->name('route.quiz');
+
 
 Route::get('/', function () {
     return redirect()->route('route.quiz');
 });
+
+

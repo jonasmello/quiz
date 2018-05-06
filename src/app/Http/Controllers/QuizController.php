@@ -35,11 +35,13 @@ class QuizController extends Controller
             {
                 $userAnswers[($id - 1)] = $userAnswer;
             }
+            if (count($userAnswers) == ($id - 1))
+            {
+                $countQuestions = count($this->quiz->getQuestions());
+                $formAction = ($id < $countQuestions ? ($id + 1) : url('/quiz/result'));
+                return view('quiz.question', compact('question', 'answers', 'formAction', 'userAnswers'));
+            }
             
-            $countQuestions = count($this->quiz->getQuestions());
-            $formAction = ($id < $countQuestions ? ($id + 1) : url('/quiz/result'));
-
-            return view('quiz.question', compact('question', 'answers', 'formAction', 'userAnswers'));
         }
 
 
@@ -48,15 +50,15 @@ class QuizController extends Controller
     public function result()
     {
 
-        if ($userAnswer = $this->request->input('answer'))
+        if (
+            ($userAnswer = $this->request->input('answer'))
+            && ($userAnswers = $this->request->input('userAnswers'))
+            && count($userAnswers) == 4
+        )
         {
-            $userAnswers = $this->request->input('userAnswers');
             $userAnswers = !is_null($userAnswers) ? $userAnswers : [];
             
-            if ($userAnswer)
-            {
-                $userAnswers[] = $userAnswer;
-            }
+            $userAnswers[] = $userAnswer;
             
             $countQuestions = count($this->quiz->getQuestions());
             if ($countQuestions == 5)
@@ -70,6 +72,6 @@ class QuizController extends Controller
             }
         }
 
-        return view('quiz.result');
+        return redirect('/quiz/question/1');
     }
 }

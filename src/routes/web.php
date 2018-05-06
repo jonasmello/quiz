@@ -12,11 +12,14 @@
 */
 
 
-Route::get('/quiz', function () {
-    return 'welcome';
-})->name('route.quiz');
+Route::get('/quiz', 'QuizController@index')->name('route.quiz');
+
+Route::any('/quiz/question/{id?}', 'QuizController@question');
+Route::post('/quiz/result/', 'QuizController@result')->name('route.result');
 
 
 Route::get('/', function () {
     return redirect()->route('route.quiz');
 });
+
+

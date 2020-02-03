@@ -4,7 +4,7 @@ ADD . /app
 
 RUN apt-get update && \
     apt-get install \
-    git zip unzip mysql-client \
+    git zip unzip \
     -y --no-install-recommends
 
 RUN docker-php-ext-install pdo pdo_mysql
